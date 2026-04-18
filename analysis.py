@@ -1,18 +1,32 @@
 from ucimlrepo import fetch_ucirepo
 
-# fetch dataset 
-student_performance = fetch_ucirepo(id=320)
 
-# data (as pandas dataframes) 
-X = student_performance.data.features #ATRIBUTES
-y = student_performance.data.targets #GRADES(G1 - G3)
+DATASET_ID = 320
 
-"""# metadata 
-print(student_performance.metadata)
 
-# variable information 
-print(student_performance.variables)
-"""
+def load_student_performance_data():
+    """Fetch the UCI Student Performance dataset."""
+    student_performance = fetch_ucirepo(id=DATASET_ID)
 
-print(X.info())
-print(y.info())
+    features = student_performance.data.features
+    targets = student_performance.data.targets
+
+    return features, targets
+
+
+def print_basic_dataset_info(features, targets):
+    """Print a short technical summary of the loaded data."""
+    print("Features data:")
+    print(features.info())
+
+    print("\nTarget data:")
+    print(targets.info())
+
+
+def main():
+    features, targets = load_student_performance_data()
+    print_basic_dataset_info(features, targets)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,7 @@
+ucimlrepo
+pandas
+numpy
+scipy
+statsmodels
+matplotlib
+seaborn
