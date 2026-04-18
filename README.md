@@ -133,6 +133,8 @@ Next steps:
 - build and evaluate a multiple regression model,
 - prepare plots and interpretation for the report.
 
+For the planned team workflow, see [PROJECT_WORKFLOW.md](PROJECT_WORKFLOW.md).
+
 ## Reference
 
 Cortez, P., & Silva, A. (2008). *Using Data Mining to Predict Secondary School Student Performance*. In Proceedings of 5th Annual Future Business Technology Conference.
