@@ -1,6 +1,7 @@
 from ucimlrepo import fetch_ucirepo
 
 from hypotheses import run_all_hypothesis_tests
+from regression import run_regression_analysis
 
 
 DATASET_ID = 320
@@ -36,6 +37,7 @@ def main():
 
     data = combine_features_and_targets(features, targets)
     run_all_hypothesis_tests(data)
+    run_regression_analysis(data)
 
 
 if __name__ == "__main__":
