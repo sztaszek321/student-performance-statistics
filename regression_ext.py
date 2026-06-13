@@ -7,42 +7,55 @@ from statsmodels.stats.outliers_influence import variance_inflation_factor
 from statsmodels.stats.stattools import durbin_watson
 
 
-REGRESSION_FORMULA = (
-    "G3 ~ studytime + failures + absences + Medu + Fedu + "
-    "traveltime + C(internet) + C(schoolsup) + C(higher)"
+EXTENDED_REGRESSION_FORMULA = (
+    "G3 ~ Medu + Fedu + traveltime + studytime + failures + "
+    "C(schoolsup) + C(famsup) + C(paid) + C(activities) + C(higher) + "
+    "absences + freetime + Walc + Dalc + famrel"
 )
 
 
-REGRESSION_COLUMNS = [
+EXTENDED_REGRESSION_COLUMNS = [
     "G3",
-    "studytime",
-    "failures",
-    "absences",
     "Medu",
     "Fedu",
     "traveltime",
-    "internet",
+    "studytime",
+    "failures",
     "schoolsup",
+    "famsup",
+    "paid",
+    "activities",
     "higher",
+    "absences",
+    "freetime",
+    "Walc",
+    "Dalc",
+    "famrel",
 ]
 
 
-PREDICTOR_COLUMNS = [
-    "studytime",
-    "failures",
-    "absences",
+EXTENDED_PREDICTOR_COLUMNS = [
     "Medu",
     "Fedu",
     "traveltime",
-    "internet",
+    "studytime",
+    "failures",
     "schoolsup",
+    "famsup",
+    "paid",
+    "activities",
     "higher",
+    "absences",
+    "freetime",
+    "Walc",
+    "Dalc",
+    "famrel",
 ]
 
 
-def run_regression_analysis(data):
-    regression_data = prepare_regression_data(data)
-    model = build_main_regression_model(regression_data)
+def run_extended_regression_analysis(data):
+    regression_data = prepare_extended_regression_data(data)
+    model = build_extended_regression_model(regression_data)
 
     print_model_summary(model, regression_data)
     print_coefficients(model)
@@ -50,21 +63,21 @@ def run_regression_analysis(data):
     analyze_residuals(model)
 
 
-def prepare_regression_data(data):
-    regression_data = data[REGRESSION_COLUMNS].dropna().copy()
+def prepare_extended_regression_data(data):
+    regression_data = data[EXTENDED_REGRESSION_COLUMNS].dropna().copy()
     return regression_data
 
 
-def build_main_regression_model(data):
-    return smf.ols(REGRESSION_FORMULA, data=data).fit()
+def build_extended_regression_model(data):
+    return smf.ols(EXTENDED_REGRESSION_FORMULA, data=data).fit()
 
 
 def print_model_summary(model, data):
-    print("\nREGRESJA WIELORAKA - MODEL BAZOWY")
+    print("\nREGRESJA WIELORAKA - MODEL ROZSZERZONY")
 
     print(f"\nLiczba obserwacji: {len(data)}")
     print("Formuła modelu:")
-    print(REGRESSION_FORMULA)
+    print(EXTENDED_REGRESSION_FORMULA)
 
     print("\nOcena dopasowania modelu:")
     print(f"R2: {model.rsquared:.4f}")
@@ -87,7 +100,7 @@ def print_coefficients(model):
 
 def prepare_vif_data(data):
     vif_data = pd.get_dummies(
-        data[PREDICTOR_COLUMNS],
+        data[EXTENDED_PREDICTOR_COLUMNS],
         drop_first=True,
         dtype=float,
     )
@@ -123,4 +136,3 @@ def analyze_residuals(model):
     print(f"Breusch-Pagan p-value: {bp_p_value:.4f}")
     print(f"Durbin-Watson: {dw_statistic:.4f}")
     print(f"Rainbow p-value: {rainbow_p_value:.4f}")
-
